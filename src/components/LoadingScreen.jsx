@@ -3,21 +3,32 @@ import { motion } from 'framer-motion';
 import collegeLogo from '../assets/college-logo.jpg';
 
 /**
- * BIMBA AI 2.0 - Initial Cinematic Loading Screen
+ * BIMBA AI - Cinematic Loading Screen
  *
- * Sequence:
- * 1. Screen starts pure black (#000000).
- * 2. Logo smoothly fades in at the center.
- * 3. Rotates continuously around its center axis for ~3 seconds.
- * 4. Gradually reduces rotation speed with natural ease-out deceleration.
- * 5. Stops at exact original upright position (1440 deg = 4 * 360 deg).
- * 6. Holds perfectly still for > 1 second.
+ * Requirements:
+ * - Full-screen pure black background (#000000).
+ * - College logo positioned exactly in the center.
+ * - Starts zoomed in (scale 2.5).
+ * - Smoothly zooms out to normal size (scale 1.0) while rotating 360°.
+ * - Slowly decelerates with a natural ease-out curve and stops perfectly in the center.
+ * - Remains completely still for 1 second.
+ * - Responsive on desktop and mobile.
+ * - Minimal, cinematic, premium (no text, glow, or extra effects).
  */
 export default function LoadingScreen({ onAnimationComplete }) {
   const [animationKey, setAnimationKey] = useState(0);
 
   const handleReplay = () => {
     setAnimationKey((prev) => prev + 1);
+  };
+
+  const handleAnimationComplete = () => {
+    // Keep still for 1 second before notifying completion handler
+    setTimeout(() => {
+      if (onAnimationComplete) {
+        onAnimationComplete();
+      }
+    }, 1000);
   };
 
   return (
@@ -41,28 +52,31 @@ export default function LoadingScreen({ onAnimationComplete }) {
     >
       <motion.div
         key={animationKey}
-        initial={{ opacity: 0, rotate: 0 }}
+        initial={{
+          opacity: 0,
+          scale: 2.5,
+          rotate: 0,
+        }}
         animate={{
-          opacity: [0, 1, 1, 1],
-          rotate: [0, 1080, 1440, 1440],
+          opacity: 1,
+          scale: 1,
+          rotate: 360,
         }}
         transition={{
           opacity: {
-            duration: 0.9,
-            delay: 0.2,
-            ease: [0.25, 0.1, 0.25, 1],
+            duration: 0.5,
+            ease: 'easeOut',
+          },
+          scale: {
+            duration: 3.2,
+            ease: [0.16, 1, 0.3, 1], // Cinematic ease-out deceleration
           },
           rotate: {
-            duration: 6.0,
-            times: [0, 0.52, 0.83, 1],
-            ease: ['linear', [0.16, 0.9, 0.3, 1], 'linear'],
+            duration: 3.2,
+            ease: [0.16, 1, 0.3, 1], // Synchronized deceleration to exact 360°
           },
         }}
-        onAnimationComplete={() => {
-          if (onAnimationComplete) {
-            onAnimationComplete();
-          }
-        }}
+        onAnimationComplete={handleAnimationComplete}
         style={{
           width: 'clamp(220px, 70vw, 290px)',
           height: 'clamp(220px, 70vw, 290px)',
