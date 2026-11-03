@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BCA AI-ML Portal</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <div class="bg">
+    <div class="grid"></div>
+    <div class="glow"></div>
+  </div>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">AI</div>
+      <div class="brandText">
+        <div class="brandTitle"> 1ST BCA AI-ML</div>
+        <div class="brandSub">Class Portal</div>
+      </div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="profileChip" id="profileChip" hidden>
+      <div class="avatar  " id="avatar"></div>
+      <div class="chipText">
+        <div class="chipName" id="chipName">Student</div>
+        <div class="chipRole" id="chipRole">student</div>
+      </div>
+      <button class="btn btnGhost" id="btnLogout">Logout</button>
+    </div>
+  </header>
+
+  <main class="container loginLayout">
+    <section class="card loginCard" id="viewAuth">
+      <div class="loginHeader">
+        <div class="loginLogoCircle">AI</div>
+        <div class="loginText">
+          <div class="loginTitle">1ST BCA AI-ML Portal</div>
+          <div class="loginSub">Class sign in</div>
+        </div>
+      </div>
+
+      <div class="loginBody">
+        <label class="label">Phone number, email or username</label>
+        <input class="input" id="username" placeholder="phone, email or username" />
+
+        <label class="label">Password</label>
+        <input class="input" id="password" type="password" placeholder="Password" />
+
+        <div class="loginMetaRow">
+          <button class="linkButton" type="button">Forgot password?</button>
+        </div>
+
+        <button class="btn btnPrimary loginBtn" id="btnLogin">Login</button>
+
+        <div class="separatorRow">
+          <span class="separatorLine"></span>
+          <span class="separatorText">OR</span>
+          <span class="separatorLine"></span>
+        </div>
+
+        <div class="hintCenter">
+          <span>Don’t have an account?</span>
+          <button class="linkButton" type="button" id="btnShowFirstLogin">
+            Get credentials
+          </button>
+        </div>
+
+        <div class="firstLoginPanel" id="panelEmail" hidden>
+          <div class="firstLoginTitle">First time here?</div>
+          <div class="muted">Enter your college email and name. We’ll generate a username and password for you.</div>
+          <label class="label">Email</label>
+          <input class="input" id="email" placeholder="student@college.edu" />
+          <label class="label">Full Name (for username generation)</label>
+          <input class="input" id="fullName" placeholder="First Last" />
+          <button class="btn btnPrimary" id="btnFirstLogin">Generate Credentials</button>
+          <div class="hint">
+            Credentials are emailed to you. In DEV mode, they’re also logged on the server.
+          </div>
+        </div>
+      </div>
+
+      <div class="toast" id="toast" hidden></div>
+    </section>
+
+    <section class="card" id="viewDashboard" hidden>
+      <div class="dashHeader">
+        <h2>Dashboard</h2>
+        <div class="muted" id="dashSub">Loading…</div>
+      </div>
+      <div class="moduleGrid" id="moduleGrid"></div>
+      <section class="panel" id="panel"></section>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+
+</html>
