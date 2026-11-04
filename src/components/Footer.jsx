@@ -12,69 +12,75 @@ function GithubIcon({ className = "w-4 h-4" }) {
 
 export default function Footer({ onReplayIntro }) {
   return (
-    <footer className="bg-slate-950 text-slate-300 border-t border-slate-900 pt-16 pb-12">
+    <footer className="bg-[#1C1917] text-[#9C8B7E] border-t border-[#2C2521] pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-slate-900">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-[#2C2521]">
           {/* Brand Column (2 cols) */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-xs">
+              <div className="w-9 h-9 rounded-xl bg-[#D97745] flex items-center justify-center text-white shadow-xs">
                 <Sparkles className="w-5 h-5" />
               </div>
-              <span className="font-extrabold text-2xl text-white tracking-tight font-['Plus_Jakarta_Sans',sans-serif]">
-                BIMBA <span className="text-emerald-400">AI</span>
+              <span className="font-extrabold text-2xl text-white tracking-tight font-['Inter',sans-serif]">
+                BIMBA <span className="text-[#D97745]">AI</span>
               </span>
             </div>
 
-            <p className="text-emerald-400 font-semibold text-sm mb-3">
+            <p className="text-[#D97745] font-semibold text-sm mb-3 font-['Inter',sans-serif]">
               Reflect Your Best Self.
             </p>
 
-            <p className="text-slate-400 text-sm max-w-sm leading-relaxed mb-6">
+            <p className="text-[#78716C] text-sm max-w-sm leading-relaxed mb-6 font-['Inter',sans-serif]">
               AI-Powered Resume Building, Career Development & Placement Automation Platform created for students and academic placement cells.
             </p>
 
             {/* College Affiliation Chip */}
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-900/90 border border-slate-800 max-w-sm">
+            <a
+              href="https://www.bbhegdecollege.com"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-3 p-3 rounded-xl bg-[#241F1C] border border-[#2C2521] max-w-sm hover:border-[#D97745]/40 hover:bg-[#2C2521] transition-all duration-200 group"
+              title="Visit Dr. B. B. Hegde College official website"
+            >
               <img
                 src={collegeLogo}
                 alt="Dr. B. B. Hegde College"
-                className="w-10 h-10 object-contain rounded-full shrink-0"
+                className="w-10 h-10 object-contain rounded-full shrink-0 group-hover:ring-2 group-hover:ring-[#D97745]/40 transition-all duration-200"
               />
               <div className="min-w-0">
-                <p className="text-xs font-bold text-white truncate">
+                <p className="text-xs font-bold text-white truncate font-['Inter',sans-serif] group-hover:text-[#D97745] transition-colors duration-200">
                   Dr. B. B. Hegde First Grade College
                 </p>
-                <p className="text-[10px] text-slate-400 uppercase tracking-wider">
+                <p className="text-[10px] text-[#78716C] uppercase tracking-wider font-['Inter',sans-serif]">
                   Kundapura, Udupi District
                 </p>
               </div>
-            </div>
+            </a>
           </div>
 
           {/* Quick Links Column */}
           <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4 font-['Inter',sans-serif]">
               Quick Links
             </h4>
-            <ul className="space-y-2.5 text-sm text-slate-400">
+            <ul className="space-y-2.5 text-sm text-[#78716C] font-['Inter',sans-serif]">
               <li>
-                <a href="#home" className="hover:text-emerald-400 transition-colors">
+                <a href="#home" className="hover:text-[#D97745] transition-colors">
                   Home
                 </a>
               </li>
               <li>
-                <a href="#features" className="hover:text-emerald-400 transition-colors">
+                <a href="#features" className="hover:text-[#D97745] transition-colors">
                   Features
                 </a>
               </li>
               <li>
-                <a href="#how-it-works" className="hover:text-emerald-400 transition-colors">
+                <a href="#how-it-works" className="hover:text-[#D97745] transition-colors">
                   How It Works
                 </a>
               </li>
               <li>
-                <a href="#about" className="hover:text-emerald-400 transition-colors">
+                <a href="#about" className="hover:text-[#D97745] transition-colors">
                   About BIMBA AI
                 </a>
               </li>
@@ -82,7 +88,7 @@ export default function Footer({ onReplayIntro }) {
                 <li>
                   <button
                     onClick={onReplayIntro}
-                    className="hover:text-emerald-400 transition-colors text-left"
+                    className="hover:text-[#D97745] transition-colors text-left"
                   >
                     Watch Intro Animation
                   </button>
@@ -93,32 +99,32 @@ export default function Footer({ onReplayIntro }) {
 
           {/* Core Features Column */}
           <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4 font-['Inter',sans-serif]">
               AI Tooling
             </h4>
-            <ul className="space-y-2.5 text-sm text-slate-400">
+            <ul className="space-y-2.5 text-sm text-[#78716C] font-['Inter',sans-serif]">
               <li>
-                <span className="hover:text-slate-200 transition-colors">
+                <span className="hover:text-[#9C8B7E] transition-colors">
                   AI Resume Builder
                 </span>
               </li>
               <li>
-                <span className="hover:text-slate-200 transition-colors">
+                <span className="hover:text-[#9C8B7E] transition-colors">
                   ATS Score Checker
                 </span>
               </li>
               <li>
-                <span className="hover:text-slate-200 transition-colors">
+                <span className="hover:text-[#9C8B7E] transition-colors">
                   AI Resume Improver
                 </span>
               </li>
               <li>
-                <span className="hover:text-slate-200 transition-colors">
+                <span className="hover:text-[#9C8B7E] transition-colors">
                   Smart Job Matching
                 </span>
               </li>
               <li>
-                <span className="hover:text-slate-200 transition-colors">
+                <span className="hover:text-[#9C8B7E] transition-colors">
                   Skill Gap Analysis
                 </span>
               </li>
@@ -127,18 +133,18 @@ export default function Footer({ onReplayIntro }) {
 
           {/* Contact & Developer Column */}
           <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4 font-['Inter',sans-serif]">
               Connect
             </h4>
-            <ul className="space-y-3 text-sm text-slate-400">
+            <ul className="space-y-3 text-sm text-[#78716C] font-['Inter',sans-serif]">
               <li className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-[#D97745] shrink-0 mt-0.5" />
                 <span className="text-xs">
                   Kundapura, Karnataka - 576201
                 </span>
               </li>
               <li className="flex items-center gap-2">
-                <GithubIcon className="w-4 h-4 text-emerald-400 shrink-0" />
+                <GithubIcon className="w-4 h-4 text-[#D97745] shrink-0" />
                 <a
                   href="https://github.com/Bharathkulal"
                   target="_blank"
@@ -150,7 +156,7 @@ export default function Footer({ onReplayIntro }) {
                 </a>
               </li>
               <li className="pt-2">
-                <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] text-slate-400">
+                <div className="p-2.5 rounded-lg bg-[#241F1C] border border-[#2C2521] text-[11px] text-[#78716C]">
                   Developed by <strong className="text-white">Bharath Kulal</strong> for students & aspiring professionals.
                 </div>
               </li>
@@ -159,11 +165,11 @@ export default function Footer({ onReplayIntro }) {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#57534E] font-['Inter',sans-serif]">
           <p>
             © {new Date().getFullYear()} BIMBA AI. Dr. B. B. Hegde First Grade College, Kundapura. All rights reserved.
           </p>
-          <p className="flex items-center gap-1 text-slate-400">
+          <p className="flex items-center gap-1 text-[#57534E]">
             A Unit of Coondapur Education Society (R)
           </p>
         </div>

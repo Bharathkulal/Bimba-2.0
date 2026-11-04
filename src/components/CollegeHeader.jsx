@@ -8,7 +8,7 @@ import collegeLogo from '../assets/college-logo.jpg';
  */
 export default function CollegeHeader() {
   return (
-    <header className="w-full bg-white border-b border-slate-100 py-2.5 sm:py-3.5 px-4 sm:px-6 lg:px-8 relative z-40">
+    <header className="w-full bg-white border-b border-[#EDE8E0] py-2.5 sm:py-3.5 px-4 sm:px-6 lg:px-8 relative z-40">
       <div className="max-w-7xl mx-auto flex items-center justify-between sm:justify-start gap-3 sm:gap-5 md:gap-6">
         {/* College Logo */}
         <div className="shrink-0">
@@ -23,12 +23,12 @@ export default function CollegeHeader() {
 
         {/* College Titles & Gradient Divider */}
         <div className="flex flex-col justify-center min-w-0">
-          <h1 className="text-[#0c1e3d] font-extrabold text-base sm:text-xl md:text-2xl lg:text-3xl tracking-tight leading-tight">
+          <h1 className="text-[#0c1e3d] font-extrabold text-base sm:text-xl md:text-2xl lg:text-3xl tracking-tight leading-tight font-['Inter',sans-serif]">
             Dr. B. B. Hegde First Grade College, Kundapura
           </h1>
 
           {/* Thin blue-to-orange gradient divider */}
-          <div className="h-[2px] sm:h-[2.5px] w-full max-w-2xl bg-gradient-to-r from-blue-700 via-blue-500 to-orange-500 my-1 sm:my-1.5 rounded-full" />
+          <div className="h-[2px] sm:h-[2.5px] w-full max-w-2xl bg-gradient-to-r from-blue-700 via-blue-500 to-[#D97745] my-1 sm:my-1.5 rounded-full" />
 
           <p className="text-slate-500 font-bold text-[10px] sm:text-xs md:text-sm tracking-wider uppercase">
             A UNIT OF COONDAPUR EDUCATION SOCIETY (R)
@@ -38,4 +38,3 @@ export default function CollegeHeader() {
     </header>
   );
 }
-

@@ -2,21 +2,25 @@
 
 @layer base {
   html {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar — warm tones */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #f8fafc;
+  background: #FAF8F5;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #D4C9BC;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #B8A99A;
 }

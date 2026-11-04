@@ -67,54 +67,54 @@ export default function FeaturesSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold uppercase tracking-wider mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F5EFE8] text-[#78716C] text-xs font-semibold uppercase tracking-wider mb-4 border border-[#E5DDD5] font-['Inter',sans-serif]">
             Core Capabilities
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-['Plus_Jakarta_Sans',sans-serif]">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1C1917] tracking-tight">
             Everything You Need to Become{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">
+            <span className="text-[#D97745]">
               Job-Ready.
             </span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600">
+          <p className="mt-5 text-base sm:text-lg text-[#78716C] font-['Inter',sans-serif]">
             A comprehensive career acceleration suite designed specifically to elevate college students from academic learning to competitive industry placement.
           </p>
         </div>
 
         {/* Feature Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
           {features.map((feature, idx) => {
             const Icon = feature.icon;
             return (
               <motion.div
                 key={feature.title}
-                className="group relative bg-[#F8FAFC] hover:bg-white rounded-2xl p-7 border border-slate-200/80 hover:border-emerald-300 transition-all duration-300 shadow-2xs hover:shadow-xl hover:shadow-emerald-950/5 flex flex-col justify-between"
+                className="group relative bg-[#FAF8F5] hover:bg-white rounded-2xl p-7 border border-[#EDE8E0] hover:border-[#F0C9A8] transition-all duration-300 shadow-xs hover:shadow-lg hover:shadow-[#C4A882]/10 flex flex-col justify-between"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
-                whileHover={{ y: -6 }}
+                whileHover={{ y: -5 }}
               >
                 <div>
                   <div className="flex items-center justify-between mb-5">
-                    <div className="w-12 h-12 rounded-xl bg-white border border-slate-200/80 group-hover:border-emerald-200 group-hover:bg-emerald-50 text-emerald-600 flex items-center justify-center transition-colors shadow-2xs">
+                    <div className="w-12 h-12 rounded-xl bg-white border border-[#EDE8E0] group-hover:border-[#F0C9A8] group-hover:bg-[#FDF0E8] text-[#D97745] flex items-center justify-center transition-colors shadow-xs">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-semibold text-slate-400 group-hover:text-emerald-600 transition-colors uppercase tracking-wider">
+                    <span className="text-xs font-semibold text-[#9C8B7E] group-hover:text-[#D97745] transition-colors uppercase tracking-wider font-['Inter',sans-serif]">
                       {feature.tag}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors mb-2.5 font-['Plus_Jakarta_Sans',sans-serif]">
+                  <h3 className="text-xl font-semibold text-[#1C1917] group-hover:text-[#A85A2A] transition-colors mb-2.5">
                     {feature.title}
                   </h3>
 
-                  <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                  <p className="text-[#78716C] text-sm leading-relaxed mb-6 font-['Inter',sans-serif]">
                     {feature.description}
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-slate-200/60 flex items-center justify-between text-xs font-semibold text-slate-500 group-hover:text-emerald-700 transition-colors">
+                <div className="pt-4 border-t border-[#EDE8E0] flex items-center justify-between text-xs font-semibold text-[#9C8B7E] group-hover:text-[#D97745] transition-colors font-['Inter',sans-serif]">
                   <span>Explore Feature</span>
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
@@ -126,4 +126,3 @@ export default function FeaturesSection() {
     </section>
   );
 }
-

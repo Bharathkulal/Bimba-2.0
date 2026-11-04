@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 
 export default function LandingPage({ onReplayIntro }) {
   return (
-    <div className="min-h-screen bg-white text-slate-900 flex flex-col selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen bg-[#FAF8F5] text-[#1C1917] flex flex-col selection:bg-[#D97745] selection:text-white">
       {/* 1. College Branding Header */}
       <CollegeHeader />
 
