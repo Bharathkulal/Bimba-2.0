@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 import {
   FileEdit,
   ScanSearch,
-  Sparkles,
-  Target,
+  Compass,
+  Building2,
   BarChart3,
-  Route,
+  GraduationCap,
   ArrowUpRight,
 } from 'lucide-react';
 
@@ -16,79 +16,79 @@ export default function FeaturesSection() {
       id: '01',
       title: 'AI Resume Builder',
       description:
-        'Construct clean, professional resumes with intelligent auto-formatting, section-based guidelines, and live previews.',
+        'Construct recruiter-approved resumes with structured section editors, live preview rendering, and standardized formatting.',
       icon: FileEdit,
-      tag: 'Creation',
+      tag: 'ARCHITECTURE',
     },
     {
       id: '02',
       title: 'ATS Resume Analyzer',
       description:
-        'Simulate top enterprise Applicant Tracking Systems to evaluate formatting, keyword relevance, and parsing accuracy.',
+        'Audit your resume PDF against modern enterprise applicant tracking algorithms to identify structural and keyword bottlenecks.',
       icon: ScanSearch,
-      tag: 'Audit',
+      tag: 'DIAGNOSTICS',
     },
     {
       id: '03',
-      title: 'AI Resume Improver',
+      title: 'Job Discovery',
       description:
-        'Transform passive duty descriptions into powerful accomplishment metrics using the proven Google XYZ formula.',
-      icon: Sparkles,
-      tag: 'Optimization',
+        'Browse curated campus placement drives, technical internships, and entry-level engineering roles matching your profile.',
+      icon: Compass,
+      tag: 'OPPORTUNITIES',
     },
     {
       id: '04',
-      title: 'Smart Job Matching',
+      title: 'Company Insights',
       description:
-        'Discover campus placement drives and external openings tailored directly to your technical competencies.',
-      icon: Target,
-      tag: 'Opportunities',
+        'Explore hiring criteria, tech stack expectations, and campus recruitment benchmarks from verified corporate employers.',
+      icon: Building2,
+      tag: 'INTELLIGENCE',
     },
     {
       id: '05',
       title: 'Skill Gap Analysis',
       description:
-        'Pinpoint missing frameworks, libraries, and certifications demanded by real-world recruiter job descriptions.',
+        'Compare your current academic competencies against target job postings to identify framework and tooling deficiencies.',
       icon: BarChart3,
-      tag: 'Analytics',
+      tag: 'BENCHMARKING',
     },
     {
       id: '06',
-      title: 'Career Roadmap',
+      title: 'Career Preparation',
       description:
-        'Follow step-by-step personalized learning paths and project recommendations to reach full interview readiness.',
-      icon: Route,
-      tag: 'Growth',
+        'Access guided roadmaps, milestone checklists, and technical interview guidelines curated for campus placement success.',
+      icon: GraduationCap,
+      tag: 'PLACEMENT',
     },
   ];
 
   return (
-    <section id="features" className="py-20 sm:py-28 bg-white relative">
+    <section id="features" className="py-20 sm:py-28 bg-[#090909] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F5EFE8] text-[#78716C] text-xs font-semibold uppercase tracking-wider mb-4 border border-[#E5DDD5] font-['Inter',sans-serif]">
-            Core Capabilities
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#151515] border border-[#D4AF37]/30 text-[#D4AF37] text-xs font-mono font-semibold tracking-wider uppercase mb-3">
+            PLATFORM CAPABILITIES
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1C1917] tracking-tight">
-            Everything You Need to Become{' '}
-            <span className="text-[#D97745]">
-              Job-Ready.
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight font-['Inter',sans-serif]">
+            Everything You Need to{' '}
+            <span className="font-serif-heading italic font-normal gold-text-gradient">
+              Build Your Future.
             </span>
           </h2>
-          <p className="mt-5 text-base sm:text-lg text-[#78716C] font-['Inter',sans-serif]">
-            A comprehensive career acceleration suite designed specifically to elevate college students from academic learning to competitive industry placement.
+          <p className="mt-4 text-base sm:text-lg text-[#A1A1A1]">
+            Purpose-built career acceleration tools designed specifically for college students preparing for competitive placement drives.
           </p>
         </div>
 
-        {/* Feature Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+        {/* Feature Cards Grid (6 cards) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {features.map((feature, idx) => {
             const Icon = feature.icon;
             return (
               <motion.div
                 key={feature.title}
-                className="group relative bg-[#FAF8F5] hover:bg-white rounded-2xl p-7 border border-[#EDE8E0] hover:border-[#F0C9A8] transition-all duration-300 shadow-xs hover:shadow-lg hover:shadow-[#C4A882]/10 flex flex-col justify-between"
+                className="group relative bg-[#151515] hover:bg-[#1A1A1A] rounded-2xl p-7 sm:p-8 border border-[#292929] hover:border-[#D4AF37]/50 transition-all duration-300 shadow-xl flex flex-col justify-between"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
@@ -96,26 +96,28 @@ export default function FeaturesSection() {
                 whileHover={{ y: -5 }}
               >
                 <div>
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="w-12 h-12 rounded-xl bg-white border border-[#EDE8E0] group-hover:border-[#F0C9A8] group-hover:bg-[#FDF0E8] text-[#D97745] flex items-center justify-center transition-colors shadow-xs">
-                      <Icon className="w-6 h-6" />
+                  {/* Card Header: Icon & Tag */}
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-[#090909] border border-[#292929] group-hover:border-[#D4AF37]/60 text-[#D4AF37] flex items-center justify-center transition-colors shadow-sm">
+                      <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-xs font-semibold text-[#9C8B7E] group-hover:text-[#D97745] transition-colors uppercase tracking-wider font-['Inter',sans-serif]">
+                    <span className="text-[10px] font-mono tracking-widest text-[#A1A1A1] group-hover:text-[#D4AF37] transition-colors uppercase">
                       {feature.tag}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-semibold text-[#1C1917] group-hover:text-[#A85A2A] transition-colors mb-2.5">
+                  {/* Title & Description */}
+                  <h3 className="text-xl font-bold text-white group-hover:text-[#F5E6B8] transition-colors mb-2.5 font-['Inter',sans-serif]">
                     {feature.title}
                   </h3>
 
-                  <p className="text-[#78716C] text-sm leading-relaxed mb-6 font-['Inter',sans-serif]">
+                  <p className="text-[#A1A1A1] text-sm leading-relaxed mb-6">
                     {feature.description}
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-[#EDE8E0] flex items-center justify-between text-xs font-semibold text-[#9C8B7E] group-hover:text-[#D97745] transition-colors font-['Inter',sans-serif]">
-                  <span>Explore Feature</span>
+                <div className="pt-4 border-t border-[#292929] flex items-center justify-between text-xs font-semibold text-[#A1A1A1] group-hover:text-[#D4AF37] transition-colors">
+                  <span>Learn more</span>
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
               </motion.div>

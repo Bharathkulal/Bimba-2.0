@@ -7,7 +7,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
 
   return (
-    <div className="relative min-h-screen bg-white">
+    <div className="relative min-h-screen bg-[#090909]">
       <AnimatePresence mode="wait">
         {loading && (
           <motion.div
