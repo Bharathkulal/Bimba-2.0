@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
-export default function MotivationalCtaSection() {
+export default function MotivationalCtaSection({ onNavigateToLogin }) {
   return (
     <section id="get-started" className="py-24 sm:py-32 bg-[#090909] relative overflow-hidden">
       {/* Cinematic subtle gold glow */}
@@ -39,7 +39,8 @@ export default function MotivationalCtaSection() {
             {/* Gold CTA Button */}
             <motion.a
               href="#login"
-              className="inline-flex items-center gap-3 bg-gradient-to-r from-[#D4AF37] to-[#B88E18] hover:from-[#E5C158] hover:to-[#C99E22] text-black font-bold text-base tracking-wider uppercase px-9 py-4 rounded-xl shadow-xl shadow-[#D4AF37]/20 hover:shadow-[#D4AF37]/30 transition-all duration-200 group active:scale-[0.98]"
+              onClick={onNavigateToLogin ? (e) => { e.preventDefault(); onNavigateToLogin(); } : undefined}
+              className="inline-flex items-center gap-3 bg-gradient-to-r from-[#D4AF37] to-[#B88E18] hover:from-[#E5C158] hover:to-[#C99E22] text-black font-bold text-base tracking-wider uppercase px-9 py-4 rounded-xl shadow-xl shadow-[#D4AF37]/20 hover:shadow-[#D4AF37]/30 transition-all duration-200 group active:scale-[0.98] cursor-pointer"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >

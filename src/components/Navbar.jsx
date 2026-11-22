@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Sparkles, ArrowRight } from 'lucide-react';
 
-export default function Navbar({ onReplayIntro }) {
+export default function Navbar({ onReplayIntro, onNavigateToLogin }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -13,6 +13,15 @@ export default function Navbar({ onReplayIntro }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleAuthNavigation = (e) => {
+    if (e) e.preventDefault();
+    if (onNavigateToLogin) {
+      onNavigateToLogin();
+    } else {
+      window.location.hash = '#login';
+    }
+  };
+
   const navLinks = [
     { label: 'Home', href: '#home' },
     { label: 'Features', href: '#features' },
@@ -22,10 +31,11 @@ export default function Navbar({ onReplayIntro }) {
 
   return (
     <nav
-      className={`sticky top-0 z-30 transition-all duration-300 ${isScrolled
+      className={`sticky top-0 z-30 transition-all duration-300 ${
+        isScrolled
           ? 'bg-[#090909]/95 backdrop-blur-md border-b border-[#292929] shadow-lg shadow-black/40'
           : 'bg-[#090909]/90 backdrop-blur-sm border-b border-[#292929]'
-        }`}
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
@@ -76,13 +86,15 @@ export default function Navbar({ onReplayIntro }) {
               )}
               <a
                 href="#login"
-                className="text-sm font-medium text-[#FFFFFF] hover:text-[#D4AF37] px-3 py-2 rounded-lg transition-colors"
+                onClick={handleAuthNavigation}
+                className="text-sm font-medium text-[#FFFFFF] hover:text-[#D4AF37] px-3 py-2 rounded-lg transition-colors cursor-pointer"
               >
                 Login
               </a>
               <a
-                href="#get-started"
-                className="inline-flex items-center gap-1.5 bg-gradient-to-r from-[#D4AF37] to-[#B88E18] hover:from-[#E5C158] hover:to-[#C99E22] text-black text-sm font-bold px-5 py-2.2 rounded-xl shadow-md shadow-[#D4AF37]/15 hover:shadow-lg hover:shadow-[#D4AF37]/25 transition-all duration-200 active:scale-[0.98]"
+                href="#login"
+                onClick={handleAuthNavigation}
+                className="inline-flex items-center gap-1.5 bg-gradient-to-r from-[#D4AF37] to-[#B88E18] hover:from-[#E5C158] hover:to-[#C99E22] text-black text-sm font-bold px-5 py-2.2 rounded-xl shadow-md shadow-[#D4AF37]/15 hover:shadow-lg hover:shadow-[#D4AF37]/25 transition-all duration-200 active:scale-[0.98] cursor-pointer"
               >
                 <span>Get Started</span>
                 <ArrowRight className="w-4 h-4" />
@@ -93,8 +105,9 @@ export default function Navbar({ onReplayIntro }) {
           {/* Mobile Menu Toggle Button */}
           <div className="flex items-center md:hidden gap-2">
             <a
-              href="#get-started"
-              className="bg-gradient-to-r from-[#D4AF37] to-[#B88E18] text-black text-xs font-bold px-3 py-1.5 rounded-lg"
+              href="#login"
+              onClick={handleAuthNavigation}
+              className="bg-gradient-to-r from-[#D4AF37] to-[#B88E18] text-black text-xs font-bold px-3 py-1.5 rounded-lg cursor-pointer"
             >
               Get Started →
             </a>
@@ -127,8 +140,11 @@ export default function Navbar({ onReplayIntro }) {
             <li>
               <a
                 href="#login"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded-lg text-white hover:bg-[#151515] hover:text-[#D4AF37] transition"
+                onClick={(e) => {
+                  setMobileMenuOpen(false);
+                  handleAuthNavigation(e);
+                }}
+                className="block px-3 py-2 rounded-lg text-white hover:bg-[#151515] hover:text-[#D4AF37] transition cursor-pointer"
               >
                 Login
               </a>

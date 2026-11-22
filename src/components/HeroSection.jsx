@@ -11,7 +11,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 
-export default function HeroSection() {
+export default function HeroSection({ onNavigateToLogin }) {
   const journeyStages = [
     {
       step: '01',
@@ -90,8 +90,9 @@ export default function HeroSection() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-10">
               <a
-                href="#get-started"
-                className="inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#D4AF37] to-[#B88E18] hover:from-[#E5C158] hover:to-[#C99E22] text-black font-bold text-base px-7 py-3.5 rounded-xl shadow-lg shadow-[#D4AF37]/20 hover:shadow-[#D4AF37]/30 transition-all duration-200 active:scale-[0.98] group"
+                href="#login"
+                onClick={onNavigateToLogin ? (e) => { e.preventDefault(); onNavigateToLogin(); } : undefined}
+                className="inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#D4AF37] to-[#B88E18] hover:from-[#E5C158] hover:to-[#C99E22] text-black font-bold text-base px-7 py-3.5 rounded-xl shadow-lg shadow-[#D4AF37]/20 hover:shadow-[#D4AF37]/30 transition-all duration-200 active:scale-[0.98] group cursor-pointer"
               >
                 <span>Start Your Journey</span>
                 <ArrowRight className="w-4.5 h-4.5 group-hover:translate-x-1 transition-transform" />
