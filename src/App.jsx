@@ -3,19 +3,45 @@ import { AnimatePresence, motion } from 'framer-motion';
 import LoadingScreen from './components/LoadingScreen';
 import LandingPage from './LandingPage';
 import LoginPage from './components/LoginPage';
+import HomeDashboard from './components/HomeDashboard';
+import { getSession, clearSession } from './config/authConfig';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
+  const [session, setSession] = useState(() => getSession());
+  const currentUser = session?.user || null;
+
   const [currentView, setCurrentView] = useState(() => {
-    return window.location.hash === '#login' ? 'login' : 'landing';
+    const hash = window.location.hash;
+    const initialSession = getSession();
+    if (hash === '#dashboard' && initialSession?.authenticated) {
+      return 'dashboard';
+    }
+    if (hash === '#login') {
+      return 'login';
+    }
+    return 'landing';
   });
 
   useEffect(() => {
     const handleHashChange = () => {
-      if (window.location.hash === '#login') {
+      const hash = window.location.hash;
+      const activeSession = getSession();
+
+      if (hash === '#dashboard') {
+        if (activeSession?.authenticated) {
+          setCurrentView('dashboard');
+        } else {
+          setCurrentView('login');
+          window.location.hash = '#login';
+        }
+      } else if (hash === '#login') {
         setCurrentView('login');
-      } else if (window.location.hash === '#home' || window.location.hash === '') {
-        setCurrentView('landing');
+      } else if (hash === '#home' || hash === '' || hash.startsWith('#')) {
+        // If hash is an anchor on landing page (e.g. #features, #about, #how-it-works)
+        if (!['#login', '#dashboard'].includes(hash)) {
+          setCurrentView('landing');
+        }
       }
     };
 
@@ -31,6 +57,25 @@ export default function App() {
   const navigateToLogin = () => {
     window.location.hash = '#login';
     setCurrentView('login');
+  };
+
+  const navigateToDashboard = () => {
+    window.location.hash = '#dashboard';
+    setCurrentView('dashboard');
+  };
+
+  const handleLoginSuccess = (user) => {
+    const freshSession = getSession();
+    setSession(freshSession);
+    window.location.hash = '#dashboard';
+    setCurrentView('dashboard');
+  };
+
+  const handleLogout = () => {
+    clearSession();
+    setSession(null);
+    window.location.hash = '#home';
+    setCurrentView('landing');
   };
 
   return (
@@ -59,7 +104,7 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Main View: Landing Page or Login Page */}
+      {/* Main View Router: Landing Page | Login Page | Home Dashboard */}
       <AnimatePresence mode="wait">
         {currentView === 'login' ? (
           <motion.div
@@ -69,7 +114,23 @@ export default function App() {
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
-            <LoginPage onBackToHome={navigateToHome} />
+            <LoginPage
+              onBackToHome={navigateToHome}
+              onLoginSuccess={handleLoginSuccess}
+            />
+          </motion.div>
+        ) : currentView === 'dashboard' ? (
+          <motion.div
+            key="dashboard-page"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <HomeDashboard
+              user={currentUser}
+              onLogout={handleLogout}
+            />
           </motion.div>
         ) : (
           <motion.div
@@ -80,8 +141,10 @@ export default function App() {
             transition={{ duration: 0.4 }}
           >
             <LandingPage
+              user={currentUser}
               onReplayIntro={() => setLoading(true)}
-              onNavigateToLogin={navigateToLogin}
+              onNavigateToLogin={currentUser ? navigateToDashboard : navigateToLogin}
+              onNavigateToDashboard={navigateToDashboard}
             />
           </motion.div>
         )}

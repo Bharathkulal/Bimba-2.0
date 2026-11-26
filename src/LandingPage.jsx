@@ -7,11 +7,16 @@ import HowItWorksSection from './components/HowItWorksSection';
 import MotivationalCtaSection from './components/MotivationalCtaSection';
 import Footer from './components/Footer';
 
-export default function LandingPage({ onReplayIntro, onNavigateToLogin }) {
+export default function LandingPage({ onReplayIntro, onNavigateToLogin, user, onNavigateToDashboard }) {
   return (
-    <div className="min-h-screen bg-[#090909] text-white flex flex-col selection:bg-[#D4AF37] selection:text-black">
+    <div className="min-h-screen bg-[#080808] text-white flex flex-col selection:bg-[#D9B43F] selection:text-black">
       {/* 1. Redesigned Black & Gold Navigation Bar */}
-      <Navbar onReplayIntro={onReplayIntro} onNavigateToLogin={onNavigateToLogin} />
+      <Navbar
+        onReplayIntro={onReplayIntro}
+        onNavigateToLogin={onNavigateToLogin}
+        user={user}
+        onNavigateToDashboard={onNavigateToDashboard}
+      />
 
       {/* Main Content Area */}
       <main className="flex-1">
