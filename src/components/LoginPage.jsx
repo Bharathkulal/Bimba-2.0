@@ -101,7 +101,7 @@ export default function LoginPage({ onBackToHome, onLoginSuccess }) {
   ];
 
   return (
-    <div className="min-h-screen bg-[#080808] text-white flex flex-col justify-between selection:bg-[#D9B43F] selection:text-black relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#080808] text-white flex flex-col justify-between selection:bg-[#D9B43F] selection:text-black relative overflow-x-hidden pb-24 md:pb-0">
       {/* Subtle Luxury Ambient Glow */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div className="absolute -top-32 left-1/4 w-[600px] h-[350px] bg-[#D9B43F]/5 blur-[160px] rounded-full" />

@@ -19,7 +19,7 @@ export default function LandingPage({ onReplayIntro, onNavigateToLogin, user, on
       />
 
       {/* Main Content Area */}
-      <main className="flex-1">
+      <main className="flex-1 pb-24 md:pb-0">
         {/* 2. Hero Section with 5-Stage Career Journey Visualization */}
         <HeroSection onNavigateToLogin={onNavigateToLogin} />
 

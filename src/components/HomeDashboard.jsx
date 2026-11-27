@@ -23,12 +23,16 @@ import {
   Calendar,
   Layers,
   Code2,
+  Building2,
+  User,
+  X,
 } from 'lucide-react';
 import collegeLogo from '../assets/college-logo.jpg';
 
 export default function HomeDashboard({ user, onLogout }) {
   const [activeTab, setActiveTab] = useState('overview');
   const [searchQuery, setSearchQuery] = useState('');
+  const [showProfileModal, setShowProfileModal] = useState(false);
 
   const studentName = user?.name || 'Admin Student';
   const studentRole = user?.program || 'BCA AI-ML (2026 Batch)';
@@ -217,9 +221,9 @@ export default function HomeDashboard({ user, onLogout }) {
       </header>
 
       {/* ── Main Dashboard Body ── */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 w-full space-y-8">
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 w-full space-y-8 pb-28 md:pb-10">
         {/* Welcome Banner */}
-        <div className="relative rounded-2xl bg-gradient-to-r from-[#121212] via-[#151515] to-[#121212] border border-[#292929] p-6 sm:p-8 overflow-hidden">
+        <div id="overview-section" className="relative rounded-2xl bg-gradient-to-r from-[#121212] via-[#151515] to-[#121212] border border-[#292929] p-6 sm:p-8 overflow-hidden scroll-mt-24">
           <div className="absolute top-0 right-0 w-80 h-full bg-[#D9B43F]/5 blur-3xl pointer-events-none" />
 
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -302,7 +306,7 @@ export default function HomeDashboard({ user, onLogout }) {
           <div className="lg:col-span-8 space-y-8">
             
             {/* Section 1: Active Resumes */}
-            <div className="bg-[#121212] rounded-2xl border border-[#292929] p-6 shadow-sm">
+            <div id="resume-section" className="bg-[#121212] rounded-2xl border border-[#292929] p-6 shadow-sm scroll-mt-24">
               <div className="flex items-center justify-between pb-4 border-b border-[#292929] mb-5">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-lg bg-[#181818] border border-[#292929] text-[#D9B43F] flex items-center justify-center">
@@ -367,7 +371,7 @@ export default function HomeDashboard({ user, onLogout }) {
             </div>
 
             {/* Section 2: Recommended Placements */}
-            <div className="bg-[#121212] rounded-2xl border border-[#292929] p-6 shadow-sm">
+            <div id="jobs-section" className="bg-[#121212] rounded-2xl border border-[#292929] p-6 shadow-sm scroll-mt-24">
               <div className="flex items-center justify-between pb-4 border-b border-[#292929] mb-5">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-lg bg-[#181818] border border-[#292929] text-[#D9B43F] flex items-center justify-center">
@@ -430,6 +434,59 @@ export default function HomeDashboard({ user, onLogout }) {
                         <ArrowUpRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Section 3: Campus Hiring Partners / Companies */}
+            <div id="companies-section" className="bg-[#121212] rounded-2xl border border-[#292929] p-6 shadow-sm scroll-mt-24">
+              <div className="flex items-center justify-between pb-4 border-b border-[#292929] mb-5">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-[#181818] border border-[#292929] text-[#D9B43F] flex items-center justify-center">
+                    <Building2 className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h2 className="text-base font-bold text-white">Campus Hiring Partners</h2>
+                    <p className="text-xs text-[#A1A1A1]">Corporate employers visiting Dr. B. B. Hegde Placement Cell</p>
+                  </div>
+                </div>
+                <span className="text-xs font-mono text-[#D9B43F]">
+                  Season 2026
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                {[
+                  { name: 'Infosys', roles: 'Associate AI Engineer • Systems Engineer', status: 'Drives Open', badge: 'Tier-1 Partner', date: 'Shortlist Nov 30' },
+                  { name: 'Wipro Technologies', roles: 'Cloud & AI Intern • Project Engineer', status: 'Assessment Ready', badge: 'Tier-1 Partner', date: 'Coding Dec 12' },
+                  { name: 'Cognitive Labs', roles: 'Junior Machine Learning Developer', status: 'Shortlisting', badge: 'AI Specialist', date: 'Rolling Drive' },
+                  { name: 'TechCorp Global', roles: 'Data Analyst • Full-Stack Developer', status: 'Campus Visit Nov 28', badge: 'Corporate', date: 'Direct Interview' },
+                ].map((co) => (
+                  <div
+                    key={co.name}
+                    className="p-3.5 rounded-xl bg-[#0B0B0B] border border-[#292929] hover:border-[#D9B43F]/40 transition-all flex items-start justify-between gap-3"
+                  >
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h4 className="text-sm font-bold text-white">{co.name}</h4>
+                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#181818] border border-[#292929] text-[#D9B43F]">
+                          {co.badge}
+                        </span>
+                      </div>
+                      <p className="text-xs text-[#A1A1A1] mt-1">{co.roles}</p>
+                      <div className="flex items-center gap-2 mt-1.5 text-[10px] font-mono">
+                        <span className="text-emerald-400">● {co.status}</span>
+                        <span className="text-neutral-500">•</span>
+                        <span className="text-neutral-400">{co.date}</span>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => alert(`Opening ${co.name} campus drive details...`)}
+                      className="px-2.5 py-1 text-xs rounded-lg bg-[#181818] hover:bg-[#222222] text-[#D9B43F] border border-[#292929] shrink-0 cursor-pointer"
+                    >
+                      View
+                    </button>
                   </div>
                 ))}
               </div>
@@ -523,7 +580,7 @@ export default function HomeDashboard({ user, onLogout }) {
             </div>
 
             {/* Institutional Notice Card */}
-            <div className="p-4 rounded-2xl bg-gradient-to-br from-[#121212] to-[#181818] border border-[#D9B43F]/30 text-xs text-[#A1A1A1]">
+            <div id="profile-section" className="p-4 rounded-2xl bg-gradient-to-br from-[#121212] to-[#181818] border border-[#D9B43F]/30 text-xs text-[#A1A1A1] scroll-mt-24">
               <div className="flex items-center gap-2 mb-2">
                 <GraduationCap className="w-4 h-4 text-[#D9B43F]" />
                 <span className="font-bold text-white">Placement Cell Verified</span>
@@ -531,12 +588,72 @@ export default function HomeDashboard({ user, onLogout }) {
               <p className="text-[11px] leading-relaxed">
                 Dr. B. B. Hegde First Grade College, Kundapura. All shortlisted resumes are directly accessible by visiting corporate recruiters.
               </p>
+              <div className="mt-3 pt-3 border-t border-[#292929] flex items-center justify-between text-[11px]">
+                <span className="text-white font-mono">{studentName}</span>
+                <button
+                  onClick={() => setShowProfileModal(true)}
+                  className="text-[#D9B43F] hover:underline font-mono"
+                >
+                  View Details →
+                </button>
+              </div>
             </div>
 
           </div>
 
         </div>
       </main>
+
+      {/* Mobile Profile Modal / Sheet */}
+      {showProfileModal && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/75 backdrop-blur-xs">
+          <div className="w-full sm:max-w-md bg-[#121212] border border-[#292929] rounded-t-3xl sm:rounded-2xl p-6 shadow-2xl relative animate-in slide-in-from-bottom duration-300">
+            <div className="flex items-center justify-between pb-4 border-b border-[#292929] mb-5">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#D9B43F] to-[#F0D77A] text-black font-extrabold text-base flex items-center justify-center">
+                  {studentName.charAt(0)}
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white">{studentName}</h3>
+                  <p className="text-xs text-[#D9B43F] font-mono">{studentRole}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowProfileModal(false)}
+                className="p-1.5 rounded-lg text-[#A1A1A1] hover:text-white bg-[#181818] border border-[#292929] cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-3 mb-6 text-xs text-[#A1A1A1]">
+              <div className="p-3 rounded-xl bg-[#0B0B0B] border border-[#292929] flex justify-between items-center">
+                <span>ATS Readiness Rank</span>
+                <span className="text-[#D9B43F] font-bold font-mono">94 / 100 (Top 5%)</span>
+              </div>
+              <div className="p-3 rounded-xl bg-[#0B0B0B] border border-[#292929] flex justify-between items-center">
+                <span>Campus Institution</span>
+                <span className="text-white truncate max-w-[200px]">Dr. B. B. Hegde College</span>
+              </div>
+              <div className="p-3 rounded-xl bg-[#0B0B0B] border border-[#292929] flex justify-between items-center">
+                <span>Account Email</span>
+                <span className="text-white">{user?.email || 'admin@bimba.ai'}</span>
+              </div>
+            </div>
+
+            <button
+              onClick={() => {
+                setShowProfileModal(false);
+                if (onLogout) onLogout();
+              }}
+              className="w-full py-3 rounded-xl bg-[#1C1212] hover:bg-[#2A1515] text-red-400 border border-red-500/30 text-xs font-bold tracking-wider uppercase flex items-center justify-center gap-2 cursor-pointer transition-colors"
+            >
+              <LogOut className="w-4 h-4" />
+              <span>Sign Out of Bimba AI</span>
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* ── Footer ── */}
       <footer className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-xs text-[#666666] font-mono border-t border-[#1C1C1C]">

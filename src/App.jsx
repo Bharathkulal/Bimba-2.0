@@ -4,6 +4,7 @@ import LoadingScreen from './components/LoadingScreen';
 import LandingPage from './LandingPage';
 import LoginPage from './components/LoginPage';
 import HomeDashboard from './components/HomeDashboard';
+import MobileBottomNav from './components/MobileBottomNav';
 import { getSession, clearSession } from './config/authConfig';
 
 export default function App() {
@@ -23,6 +24,15 @@ export default function App() {
     return 'landing';
   });
 
+  const [mobileNavActive, setMobileNavActive] = useState(() => {
+    const hash = window.location.hash;
+    if (hash === '#login') return 'profile';
+    if (hash === '#resume' || hash === '#features') return 'resume';
+    if (hash === '#jobs' || hash === '#how-it-works') return 'jobs';
+    if (hash === '#companies' || hash === '#about') return 'companies';
+    return 'home';
+  });
+
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash;
@@ -31,16 +41,29 @@ export default function App() {
       if (hash === '#dashboard') {
         if (activeSession?.authenticated) {
           setCurrentView('dashboard');
+          setMobileNavActive('home');
         } else {
           setCurrentView('login');
+          setMobileNavActive('profile');
           window.location.hash = '#login';
         }
       } else if (hash === '#login') {
         setCurrentView('login');
+        setMobileNavActive('profile');
+      } else if (hash === '#resume' || hash === '#features') {
+        setCurrentView('landing');
+        setMobileNavActive('resume');
+      } else if (hash === '#jobs' || hash === '#how-it-works') {
+        setCurrentView('landing');
+        setMobileNavActive('jobs');
+      } else if (hash === '#companies' || hash === '#about') {
+        setCurrentView('landing');
+        setMobileNavActive('companies');
       } else if (hash === '#home' || hash === '' || hash.startsWith('#')) {
-        // If hash is an anchor on landing page (e.g. #features, #about, #how-it-works)
+        // If hash is an anchor on landing page
         if (!['#login', '#dashboard'].includes(hash)) {
           setCurrentView('landing');
+          setMobileNavActive('home');
         }
       }
     };
@@ -52,16 +75,19 @@ export default function App() {
   const navigateToHome = () => {
     window.location.hash = '#home';
     setCurrentView('landing');
+    setMobileNavActive('home');
   };
 
   const navigateToLogin = () => {
     window.location.hash = '#login';
     setCurrentView('login');
+    setMobileNavActive('profile');
   };
 
   const navigateToDashboard = () => {
     window.location.hash = '#dashboard';
     setCurrentView('dashboard');
+    setMobileNavActive('home');
   };
 
   const handleLoginSuccess = (user) => {
@@ -69,6 +95,7 @@ export default function App() {
     setSession(freshSession);
     window.location.hash = '#dashboard';
     setCurrentView('dashboard');
+    setMobileNavActive('home');
   };
 
   const handleLogout = () => {
@@ -76,6 +103,67 @@ export default function App() {
     setSession(null);
     window.location.hash = '#home';
     setCurrentView('landing');
+    setMobileNavActive('home');
+  };
+
+  const handleMobileNavigation = (itemId, route) => {
+    setMobileNavActive(itemId);
+
+    if (itemId === 'home') {
+      if (currentView === 'dashboard') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (currentView === 'landing') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.location.hash = '#home';
+      } else {
+        navigateToHome();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    } else if (itemId === 'resume') {
+      if (currentView === 'dashboard') {
+        const el = document.getElementById('resume-section');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        if (currentView !== 'landing') navigateToHome();
+        setTimeout(() => {
+          const el = document.getElementById('features');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 80);
+      }
+    } else if (itemId === 'jobs') {
+      if (currentView === 'dashboard') {
+        const el = document.getElementById('jobs-section');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        if (currentView !== 'landing') navigateToHome();
+        setTimeout(() => {
+          const el = document.getElementById('how-it-works');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 80);
+      }
+    } else if (itemId === 'companies') {
+      if (currentView === 'dashboard') {
+        const el = document.getElementById('companies-section') || document.getElementById('jobs-section');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        if (currentView !== 'landing') navigateToHome();
+        setTimeout(() => {
+          const el = document.getElementById('about') || document.getElementById('features');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 80);
+      }
+    } else if (itemId === 'profile') {
+      if (currentUser) {
+        if (currentView !== 'dashboard') {
+          navigateToDashboard();
+        } else {
+          const el = document.getElementById('profile-section');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        navigateToLogin();
+      }
+    }
   };
 
   return (
@@ -149,6 +237,15 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Mobile Bottom Navigation Bar (Fixed below 768px) */}
+      {!loading && (
+        <MobileBottomNav
+          activeItem={mobileNavActive}
+          onNavigate={handleMobileNavigation}
+          currentUser={currentUser}
+        />
+      )}
     </div>
   );
 }
