@@ -3,168 +3,81 @@ import { AnimatePresence, motion } from 'framer-motion';
 import LoadingScreen from './components/LoadingScreen';
 import LandingPage from './LandingPage';
 import LoginPage from './components/LoginPage';
-import HomeDashboard from './components/HomeDashboard';
-import MobileBottomNav from './components/MobileBottomNav';
+import StudentLayout from './components/StudentLayout';
+import HomePage from './pages/HomePage';
+import ResumePage from './pages/ResumePage';
+import JobsPage from './pages/JobsPage';
+import CompaniesPage from './pages/CompaniesPage';
+import ProfilePage from './pages/ProfilePage';
 import { getSession, clearSession } from './config/authConfig';
+
+const STUDENT_ROUTES = ['/home', '/resume', '/jobs', '/companies', '/profile'];
+
+function getRouteFromLocation() {
+  const path = window.location.pathname.toLowerCase().replace(/\/$/, '') || '/';
+  const hash = window.location.hash.toLowerCase().replace(/^#/, '');
+
+  // 1. Direct path matches
+  if (STUDENT_ROUTES.includes(path)) return path;
+  if (path === '/login') return '/login';
+
+  // 2. Hash fallbacks
+  if (hash === 'resume' || hash === '/resume') return '/resume';
+  if (hash === 'jobs' || hash === '/jobs') return '/jobs';
+  if (hash === 'companies' || hash === '/companies') return '/companies';
+  if (hash === 'profile' || hash === '/profile') return '/profile';
+  if (hash === 'dashboard' || hash === 'home' || hash === '/home') return '/home';
+  if (hash === 'login' || hash === '/login') return '/login';
+
+  return '/';
+}
 
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState(() => getSession());
   const currentUser = session?.user || null;
 
-  const [currentView, setCurrentView] = useState(() => {
-    const hash = window.location.hash;
-    const initialSession = getSession();
-    if (hash === '#dashboard' && initialSession?.authenticated) {
-      return 'dashboard';
-    }
-    if (hash === '#login') {
-      return 'login';
-    }
-    return 'landing';
+  const [currentRoute, setCurrentRoute] = useState(() => {
+    return getRouteFromLocation();
   });
 
-  const [mobileNavActive, setMobileNavActive] = useState(() => {
-    const hash = window.location.hash;
-    if (hash === '#login') return 'profile';
-    if (hash === '#resume' || hash === '#features') return 'resume';
-    if (hash === '#jobs' || hash === '#how-it-works') return 'jobs';
-    if (hash === '#companies' || hash === '#about') return 'companies';
-    return 'home';
-  });
-
+  // Keep route synced with browser back/forward and hash changes
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash;
-      const activeSession = getSession();
-
-      if (hash === '#dashboard') {
-        if (activeSession?.authenticated) {
-          setCurrentView('dashboard');
-          setMobileNavActive('home');
-        } else {
-          setCurrentView('login');
-          setMobileNavActive('profile');
-          window.location.hash = '#login';
-        }
-      } else if (hash === '#login') {
-        setCurrentView('login');
-        setMobileNavActive('profile');
-      } else if (hash === '#resume' || hash === '#features') {
-        setCurrentView('landing');
-        setMobileNavActive('resume');
-      } else if (hash === '#jobs' || hash === '#how-it-works') {
-        setCurrentView('landing');
-        setMobileNavActive('jobs');
-      } else if (hash === '#companies' || hash === '#about') {
-        setCurrentView('landing');
-        setMobileNavActive('companies');
-      } else if (hash === '#home' || hash === '' || hash.startsWith('#')) {
-        // If hash is an anchor on landing page
-        if (!['#login', '#dashboard'].includes(hash)) {
-          setCurrentView('landing');
-          setMobileNavActive('home');
-        }
-      }
+    const handleLocationChange = () => {
+      const detected = getRouteFromLocation();
+      setCurrentRoute(detected);
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+    };
   }, []);
 
-  const navigateToHome = () => {
-    window.location.hash = '#home';
-    setCurrentView('landing');
-    setMobileNavActive('home');
-  };
-
-  const navigateToLogin = () => {
-    window.location.hash = '#login';
-    setCurrentView('login');
-    setMobileNavActive('profile');
-  };
-
-  const navigateToDashboard = () => {
-    window.location.hash = '#dashboard';
-    setCurrentView('dashboard');
-    setMobileNavActive('home');
+  const navigateTo = (newRoute) => {
+    if (window.location.pathname !== newRoute) {
+      window.history.pushState(null, '', newRoute);
+    }
+    setCurrentRoute(newRoute);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleLoginSuccess = (user) => {
     const freshSession = getSession();
     setSession(freshSession);
-    window.location.hash = '#dashboard';
-    setCurrentView('dashboard');
-    setMobileNavActive('home');
+    navigateTo('/home');
   };
 
   const handleLogout = () => {
     clearSession();
     setSession(null);
-    window.location.hash = '#home';
-    setCurrentView('landing');
-    setMobileNavActive('home');
+    navigateTo('/');
   };
 
-  const handleMobileNavigation = (itemId, route) => {
-    setMobileNavActive(itemId);
-
-    if (itemId === 'home') {
-      if (currentView === 'dashboard') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (currentView === 'landing') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        window.location.hash = '#home';
-      } else {
-        navigateToHome();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    } else if (itemId === 'resume') {
-      if (currentView === 'dashboard') {
-        const el = document.getElementById('resume-section');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        if (currentView !== 'landing') navigateToHome();
-        setTimeout(() => {
-          const el = document.getElementById('features');
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
-        }, 80);
-      }
-    } else if (itemId === 'jobs') {
-      if (currentView === 'dashboard') {
-        const el = document.getElementById('jobs-section');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        if (currentView !== 'landing') navigateToHome();
-        setTimeout(() => {
-          const el = document.getElementById('how-it-works');
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
-        }, 80);
-      }
-    } else if (itemId === 'companies') {
-      if (currentView === 'dashboard') {
-        const el = document.getElementById('companies-section') || document.getElementById('jobs-section');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        if (currentView !== 'landing') navigateToHome();
-        setTimeout(() => {
-          const el = document.getElementById('about') || document.getElementById('features');
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
-        }, 80);
-      }
-    } else if (itemId === 'profile') {
-      if (currentUser) {
-        if (currentView !== 'dashboard') {
-          navigateToDashboard();
-        } else {
-          const el = document.getElementById('profile-section');
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
-        }
-      } else {
-        navigateToLogin();
-      }
-    }
-  };
+  // Determine which page content to render
+  const isStudentRoute = STUDENT_ROUTES.includes(currentRoute);
 
   return (
     <div className="relative min-h-screen bg-[#080808]">
@@ -192,60 +105,91 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Main View Router: Landing Page | Login Page | Home Dashboard */}
+      {/* Main View Router */}
       <AnimatePresence mode="wait">
-        {currentView === 'login' ? (
+        {currentRoute === '/login' ? (
           <motion.div
             key="login-page"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           >
             <LoginPage
-              onBackToHome={navigateToHome}
+              onBackToHome={() => navigateTo('/')}
               onLoginSuccess={handleLoginSuccess}
             />
           </motion.div>
-        ) : currentView === 'dashboard' ? (
-          <motion.div
-            key="dashboard-page"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <HomeDashboard
+        ) : isStudentRoute ? (
+          currentUser ? (
+            <StudentLayout
+              key="student-shell"
               user={currentUser}
+              activeRoute={currentRoute}
+              onNavigate={navigateTo}
               onLogout={handleLogout}
-            />
-          </motion.div>
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentRoute}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  {currentRoute === '/home' && (
+                    <HomePage user={currentUser} onNavigate={navigateTo} />
+                  )}
+                  {currentRoute === '/resume' && (
+                    <ResumePage user={currentUser} onNavigate={navigateTo} />
+                  )}
+                  {currentRoute === '/jobs' && (
+                    <JobsPage user={currentUser} onNavigate={navigateTo} />
+                  )}
+                  {currentRoute === '/companies' && (
+                    <CompaniesPage user={currentUser} onNavigate={navigateTo} />
+                  )}
+                  {currentRoute === '/profile' && (
+                    <ProfilePage
+                      user={currentUser}
+                      onLogout={handleLogout}
+                      onNavigate={navigateTo}
+                    />
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </StudentLayout>
+          ) : (
+            // If student tries to access /home, /resume etc while unauthenticated, show login
+            <motion.div
+              key="auth-redirect"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <LoginPage
+                onBackToHome={() => navigateTo('/')}
+                onLoginSuccess={handleLoginSuccess}
+              />
+            </motion.div>
+          )
         ) : (
           <motion.div
             key="landing-page"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.35 }}
           >
             <LandingPage
               user={currentUser}
               onReplayIntro={() => setLoading(true)}
-              onNavigateToLogin={currentUser ? navigateToDashboard : navigateToLogin}
-              onNavigateToDashboard={navigateToDashboard}
+              onNavigateToLogin={() => navigateTo(currentUser ? '/home' : '/login')}
+              onNavigateToDashboard={() => navigateTo('/home')}
             />
           </motion.div>
         )}
       </AnimatePresence>
-
-        {/* Mobile Bottom Navigation Bar (Fixed below 768px — ONLY on Home Dashboard) */ }
-      {!loading && currentView === 'dashboard' && (
-        <MobileBottomNav
-          activeItem={mobileNavActive}
-          onNavigate={handleMobileNavigation}
-          currentUser={currentUser}
-        />
-      )}
     </div>
   );
 }
