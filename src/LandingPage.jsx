@@ -19,25 +19,25 @@ export default function LandingPage({ onReplayIntro, onNavigateToLogin, user, on
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 pb-24 md:pb-0">
-        {/* 2. Hero Section with 5-Stage Career Journey Visualization */}
-        <HeroSection onNavigateToLogin={onNavigateToLogin} />
+        <main className="flex-1">
+          {/* 2. Hero Section with 5-Stage Career Journey Visualization */}
+          <HeroSection onNavigateToLogin={onNavigateToLogin} />
 
-        {/* 3. Student Motivation Section ("Your Degree Is Just the Beginning.") */}
-        <StudentMotivationSection />
+          {/* 3. Student Motivation Section ("Your Degree Is Just the Beginning.") */}
+          <StudentMotivationSection />
 
-        {/* 4. Features Section ("Everything You Need to Build Your Future.") */}
-        <FeaturesSection />
+          {/* 4. Features Section ("Everything You Need to Build Your Future.") */}
+          <FeaturesSection />
 
-        {/* 5. How It Works ("From Classroom to Career." - 5-Step Connected Timeline) */}
-        <HowItWorksSection />
+          {/* 5. How It Works ("From Classroom to Career." - 5-Step Connected Timeline) */}
+          <HowItWorksSection />
 
-        {/* 6. Motivational Section ("One Day, Your Hard Work Will Introduce You...") */}
-        <MotivationalCtaSection onNavigateToLogin={onNavigateToLogin} />
-      </main>
+          {/* 6. Motivational Section ("One Day, Your Hard Work Will Introduce You...") */}
+          <MotivationalCtaSection onNavigateToLogin={onNavigateToLogin} />
+        </main>
 
-      {/* 7. Redesigned Black & Gold Footer */}
-      <Footer onReplayIntro={onReplayIntro} />
+        {/* 7. Redesigned Black & Gold Footer */}
+        <Footer onReplayIntro={onReplayIntro} />
     </div>
   );
 }

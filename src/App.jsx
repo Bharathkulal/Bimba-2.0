@@ -238,8 +238,8 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Mobile Bottom Navigation Bar (Fixed below 768px) */}
-      {!loading && (
+        {/* Mobile Bottom Navigation Bar (Fixed below 768px — ONLY on Home Dashboard) */ }
+      {!loading && currentView === 'dashboard' && (
         <MobileBottomNav
           activeItem={mobileNavActive}
           onNavigate={handleMobileNavigation}
