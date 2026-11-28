@@ -26,7 +26,7 @@ export default function StudentLayout({
 
       {/* ── Subtle Desktop Footer ── */}
       <footer className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-xs text-[#666666] font-mono border-t border-[#1C1C1C] hidden md:block">
-        © {new Date().getFullYear()} BIMBA AI 2.0. Dr. B. B. Hegde First Grade College, Kundapura.
+        © BIMBA AI 2.0. Dr. B. B. Hegde First Grade College, Kundapura.
       </footer>
 
       {/* ── Persistent Mobile Bottom Navigation Bar (Fixed below 768px) ── */}

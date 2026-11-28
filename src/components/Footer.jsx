@@ -153,7 +153,7 @@ export default function Footer({ onReplayIntro }) {
         {/* Bottom Bar with Gold Separator */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#A1A1A1]">
           <p>
-            © {new Date().getFullYear()} BIMBA AI. Dr. B. B. Hegde First Grade College, Kundapura.
+            © BIMBA AI. Dr. B. B. Hegde First Grade College, Kundapura.
           </p>
           <p className="flex items-center gap-1.5 font-mono text-[11px]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />
